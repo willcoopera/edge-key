@@ -44,7 +44,7 @@
     <section class="space-y-5">
       <div class="flex items-center gap-3">
         <h2 class="text-xl font-bold text-base-content">Products</h2>
-        <span v-if="filteredProducts.length" class="text-xs text-base-content/40 font-medium">共 {{ filteredProducts.length }} 件</span>
+        <span v-if="filteredProducts.length" class="text-xs text-base-content/40 font-medium">{{ filteredProducts.length }} total</span>
       </div>
 
       <!-- 分类筛选 -->
