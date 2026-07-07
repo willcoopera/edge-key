@@ -43,7 +43,7 @@
     <!-- 商品列表 -->
     <section class="space-y-5">
       <div class="flex items-center gap-3">
-        <h2 class="text-xl font-bold text-base-content">商品列表</h2>
+        <h2 class="text-xl font-bold text-base-content">Products</h2>
         <span v-if="filteredProducts.length" class="text-xs text-base-content/40 font-medium">共 {{ filteredProducts.length }} 件</span>
       </div>
 
