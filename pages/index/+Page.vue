@@ -108,7 +108,7 @@
                   'bg-red-50 text-red-500': product.availableStock === 0
                 }"
               >
-                {{ product.availableStock === 0 ? '已售罄' : lowStock(product) ? `紧张(${product.availableStock})` : '有货' }}
+                {{ product.availableStock === 0 ? 'Out of Stock' : lowStock(product) ? `Low Stock(${product.availableStock})` : 'In Stock' }}
               </span>
               <span
                 v-else-if="product.deliveryType === 'FIXED_CARD'"
