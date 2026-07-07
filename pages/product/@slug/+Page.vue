@@ -162,7 +162,7 @@ const submitting = ref(false);
 const errorMessage = ref("");
 const epayChannels = [
   { value: "alipay", label: "Alipay", icon: "alipay" },
-  { value: "wxpay", label: "WeChat Pay", icon: "wechat" },
+  { value: "wxpay", label: "WxPay", icon: "wechat" },
 ] as const;
 
 const discountPreview = reactive({
