@@ -852,7 +852,7 @@ export async function notifyOrderPaid(input: {
     amount: (input.amount / 100).toFixed(2),
     queryUrl: getQueryUrl(baseValues.baseOrigin, input.orderNo, input.queryToken),
     footerText: baseValues.footerText,
-    buyerNote: input.buyerNote || "无",
+    buyerNote: input.buyerNote || " ",
   };
 
   const tasks: Promise<any>[] = [];
@@ -914,7 +914,7 @@ export async function notifyDeliverySuccess(input: {
     orderNo: input.orderNo,
     productName: input.productName,
     quantity: String(input.quantity),
-    buyerNote: input.buyerNote || "无",
+    buyerNote: input.buyerNote || " ",
     deliveryItems: buildDeliveryItems(input.items),
     queryUrl: getQueryUrl(baseValues.baseOrigin, input.orderNo, input.queryToken),
     supportContact: baseValues.supportContact,
@@ -977,7 +977,7 @@ export async function notifyDeliveryFailed(input: {
     siteName: baseValues.siteName,
     orderNo: input.orderNo,
     productName: input.productName,
-    buyerNote: input.buyerNote || "无",
+    buyerNote: input.buyerNote || " ",
     errorMessage: input.errorMessage,
     queryUrl: getQueryUrl(baseValues.baseOrigin, input.orderNo, input.queryToken),
     supportContact: baseValues.supportContact,
