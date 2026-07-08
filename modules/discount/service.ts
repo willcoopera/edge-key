@@ -15,29 +15,29 @@ export async function validateDiscountCode(code: string, productId: number, amou
   });
 
   if (!discountCode) {
-    throw notFoundError("折扣码不存在", "DISCOUNT_CODE_NOT_FOUND");
+    throw notFoundError("Discount code does not exist", "DISCOUNT_CODE_NOT_FOUND");
   }
 
   if (!discountCode.isActive) {
-    throw conflictError("折扣码已禁用", "DISCOUNT_CODE_DISABLED");
+    throw conflictError("This discount code has been disabled", "DISCOUNT_CODE_DISABLED");
   }
 
   if (discountCode.expiresAt && discountCode.expiresAt < new Date()) {
-    throw conflictError("折扣码已过期", "DISCOUNT_CODE_EXPIRED");
+    throw conflictError("This discount code has expired", "DISCOUNT_CODE_EXPIRED");
   }
 
   if (discountCode.maxUses && discountCode.usedCount >= discountCode.maxUses) {
-    throw conflictError("折扣码已用完", "DISCOUNT_CODE_EXHAUSTED");
+    throw conflictError("This discount code has reached its usage limit", "DISCOUNT_CODE_EXHAUSTED");
   }
 
   if (discountCode.minAmount && amount < discountCode.minAmount) {
-    throw conflictError(`最低消费 ${(discountCode.minAmount / 100).toFixed(2)} 元`, "DISCOUNT_CODE_MIN_AMOUNT");
+    throw conflictError(`Minimum order amount is ${(discountCode.minAmount / 100).toFixed(2)}`, "DISCOUNT_CODE_MIN_AMOUNT");
   }
 
   if (discountCode.productIds) {
     const allowedIds = discountCode.productIds.split(",").map((id) => parseInt(id.trim(), 10)).filter((id) => !isNaN(id));
     if (allowedIds.length > 0 && !allowedIds.includes(productId)) {
-      throw conflictError("该折扣码不适用于此商品", "DISCOUNT_CODE_PRODUCT_NOT_ALLOWED");
+      throw conflictError("This discount code cannot be applied to this product", "DISCOUNT_CODE_PRODUCT_NOT_ALLOWED");
     }
   }
 
@@ -79,7 +79,7 @@ export async function previewDiscount(code: string, productId: number, amount: n
   } catch (error: any) {
     return {
       valid: false,
-      error: error.message || "折扣码无效",
+      error: error.message || "Invalid discount code",
     };
   }
 }
@@ -118,15 +118,15 @@ export async function createDiscountCode(input: {
   });
 
   if (existing) {
-    throw conflictError("折扣码已存在", "DISCOUNT_CODE_EXISTS");
+    throw conflictError("Discount code already exists", "DISCOUNT_CODE_EXISTS");
   }
 
   if (input.type === "PERCENT" && (input.value <= 0 || input.value > 100)) {
-    throw conflictError("百分比折扣值必须在 1-100 之间", "DISCOUNT_CODE_INVALID_PERCENT");
+    throw conflictError("Percentage discount must be between 1 and 100", "DISCOUNT_CODE_INVALID_PERCENT");
   }
 
   if (input.type === "FIXED" && input.value <= 0) {
-    throw conflictError("固定金额折扣值必须大于 0", "DISCOUNT_CODE_INVALID_FIXED");
+    throw conflictError("Fixed discount amount must be greater than 0", "DISCOUNT_CODE_INVALID_FIXED");
   }
 
   const discountCode = await client.discountCode.create({
@@ -170,7 +170,7 @@ export async function updateDiscountCode(id: number, input: {
 
   const existing = await client.discountCode.findUnique({ where: { id } });
   if (!existing) {
-    throw notFoundError("折扣码不存在", "DISCOUNT_CODE_NOT_FOUND");
+    throw notFoundError("Discount code does not exist", "DISCOUNT_CODE_NOT_FOUND");
   }
 
   if (input.code && input.code.toUpperCase() !== existing.code) {
@@ -178,16 +178,16 @@ export async function updateDiscountCode(id: number, input: {
       where: { code: input.code.toUpperCase() },
     });
     if (duplicate) {
-      throw conflictError("折扣码已存在", "DISCOUNT_CODE_EXISTS");
+      throw conflictError("Discount code already exists", "DISCOUNT_CODE_EXISTS");
     }
   }
 
   if (input.type === "PERCENT" && input.value !== undefined && (input.value <= 0 || input.value > 100)) {
-    throw conflictError("百分比折扣值必须在 1-100 之间", "DISCOUNT_CODE_INVALID_PERCENT");
+    throw conflictError("Percentage discount must be between 1 and 100", "DISCOUNT_CODE_INVALID_PERCENT");
   }
 
   if (input.type === "FIXED" && input.value !== undefined && input.value <= 0) {
-    throw conflictError("固定金额折扣值必须大于 0", "DISCOUNT_CODE_INVALID_FIXED");
+    throw conflictError("Fixed discount amount must be greater than 0", "DISCOUNT_CODE_INVALID_FIXED");
   }
 
   const discountCode = await client.discountCode.update({
@@ -224,7 +224,7 @@ export async function deleteDiscountCode(id: number, prisma?: PrismaClient) {
 
   const existing = await client.discountCode.findUnique({ where: { id } });
   if (!existing) {
-    throw notFoundError("折扣码不存在", "DISCOUNT_CODE_NOT_FOUND");
+    throw notFoundError("Discount code does not exist", "DISCOUNT_CODE_NOT_FOUND");
   }
 
   await client.discountCode.delete({ where: { id } });
