@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!order" class="alert alert-warning">订单不存在，或查询凭证无效。</div>
+  <div v-if="!order" class="alert alert-warning">Order does not exist or the query token is invalid.</div>
   <div v-else class="space-y-6">
     <section class="card bg-base-100 shadow-sm">
       <div class="card-body">
@@ -40,7 +40,7 @@
             <div class="flex justify-between"><span>Payment Method</span><span>{{ getPaymentProviderLabel(order.paymentProvider) }}</span></div>
           </div>
           <div v-if="order.paymentStatus === 'UNPAID'" class="mt-4">
-            <AppButton v-if="order.paymentProvider !== 'ALIPAY_FACE'" size="sm" variant="primary" :loading="paying" @click="handleContinuePay">继续支付</AppButton>
+            <AppButton v-if="order.paymentProvider !== 'ALIPAY_FACE'" size="sm" variant="primary" :loading="paying" @click="handleContinuePay">Continue Payment</AppButton>
             <div v-if="order.paymentProvider === 'ALIPAY_FACE'" class="space-y-3">
               <div v-if="qrCodeUrl">
                 <p class="text-sm text-base-content/70">Please scan the QR code below with Alipay to complete payment</p>
