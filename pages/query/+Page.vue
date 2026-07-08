@@ -54,15 +54,15 @@
     <div v-if="activeTab === 'query'" class="card bg-base-100 shadow-sm rounded-tl-none">
       <div class="card-body space-y-4">
         <label class="flex flex-col gap-1.5">
-          <span class="label-text font-medium">订单号</span>
-          <input v-model="orderNo" class="input input-bordered w-full" placeholder="请输入订单号" />
+          <span class="label-text font-medium">Order Number</span>
+          <input v-model="orderNo" class="input input-bordered w-full" placeholder="Enter your order number" />
         </label>
         <label class="flex flex-col gap-1.5">
-          <span class="label-text font-medium">查询凭证</span>
-          <input v-model="queryToken" class="input input-bordered w-full" placeholder="请输入查询 token" />
+          <span class="label-text font-medium">Query Token</span>
+          <input v-model="queryToken" class="input input-bordered w-full" placeholder="Enter query token" />
         </label>
         <div class="flex items-center gap-3">
-          <AppButton variant="primary" :loading="querying" @click="handleQuery">查询订单</AppButton>
+          <AppButton variant="primary" :loading="querying" @click="handleQuery">Query Order</AppButton>
           <span v-if="errorMessage" class="text-sm text-error">{{ errorMessage }}</span>
         </div>
       </div>
@@ -163,13 +163,13 @@ async function handleQuery() {
     });
 
     if (!result) {
-      errorMessage.value = "未找到匹配订单，请检查订单号和查询凭证。";
+      errorMessage.value = "No matching order found, please check your order number and query token.";
       return;
     }
 
     window.location.href = `/order/${result.orderNo}?token=${encodeURIComponent(queryToken.value)}`;
   } catch (error) {
-    errorMessage.value = normalizeTelefuncError(error, "查询失败");
+    errorMessage.value = normalizeTelefuncError(error, "Query failed");
   } finally {
     querying.value = false;
   }

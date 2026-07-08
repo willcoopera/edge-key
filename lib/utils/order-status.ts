@@ -92,11 +92,11 @@ export function getDeliveryStatusType(status: string): "warning" | "success" | "
 export function getVerifyStatusLabel(status: string) {
   switch (status) {
     case "PENDING":
-      return "待校验";
+      return "PENDING";
     case "VERIFIED":
-      return "已校验";
+      return "VERIFIED";
     case "FAILED":
-      return "校验失败";
+      return "FAILED";
     default:
       return status;
   }
