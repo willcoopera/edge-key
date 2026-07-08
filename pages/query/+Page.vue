@@ -2,9 +2,9 @@
   <div class="mx-auto">
 
     <div class="tabs tabs-lift">
-      <a class="tab" :class="{ 'tab-active': activeTab === 'query' }" @click="activeTab = 'query'">订单查询</a>
+      <a class="tab" :class="{ 'tab-active': activeTab === 'query' }" @click="activeTab = 'query'">Order Inquiry</a>
       <a class="tab" :class="{ 'tab-active': activeTab === 'local' }" @click="activeTab = 'local'">
-        本地订单
+        Local Orders
         <span v-if="localOrders.length" class="indicator-item badge badge-primary badge-sm ml-1">{{ localOrders.length }}</span>
       </a>
     </div>
@@ -13,14 +13,14 @@
     <div v-if="activeTab === 'local'" class="card bg-base-100 shadow-sm rounded-tl-none">
       <div class="card-body">
         <div class="mb-2 flex items-center justify-between gap-3">
-          <span class="text-sm text-base-content/60">本地订单会在打开页面时自动同步最新状态</span>
-          <AppButton size="sm" variant="outline" :loading="syncingLocalOrders" @click="handleRefreshLocalOrders">刷新状态</AppButton>
+          <span class="text-sm text-base-content/60">Local orders automatically sync the latest status when the page loads</span>
+          <AppButton size="sm" variant="outline" :loading="syncingLocalOrders" @click="handleRefreshLocalOrders">Refresh Status</AppButton>
         </div>
         <div v-if="!localOrders.length" class="flex flex-col items-center gap-2 py-8 text-base-content/40">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
           </svg>
-          <p class="text-sm">暂无本地订单，在本设备下单后会自动保存在此</p>
+          <p class="text-sm">No local orders yet. Orders placed on this device will be saved here automatically</p>
         </div>
 
         <div v-else class="space-y-2 max-h-96 overflow-y-auto pr-1">

@@ -1,15 +1,15 @@
 export function getOrderStatusLabel(status: string) {
   switch (status) {
     case "PENDING":
-      return "待处理";
+      return "PENDING";
     case "PAID":
-      return "已支付";
+      return "PAID";
     case "DELIVERED":
-      return "已发货";
+      return "DELIVERED";
     case "CLOSED":
-      return "已关闭";
+      return "CLOSED";
     case "FAILED":
-      return "失败";
+      return "FAILED";
     default:
       return status;
   }
@@ -18,11 +18,11 @@ export function getOrderStatusLabel(status: string) {
 export function getPaymentStatusLabel(status: string) {
   switch (status) {
     case "UNPAID":
-      return "未支付";
+      return "UNPAID";
     case "PAID":
-      return "已支付";
+      return "PAID";
     case "FAILED":
-      return "支付失败";
+      return "FAILED";
     default:
       return status;
   }
@@ -31,11 +31,11 @@ export function getPaymentStatusLabel(status: string) {
 export function getDeliveryStatusLabel(status: string) {
   switch (status) {
     case "NOT_DELIVERED":
-      return "未发货";
+      return "NOT_DELIVERED";
     case "DELIVERED":
-      return "已发货";
+      return "DELIVERED";
     case "FAILED":
-      return "发货失败";
+      return "FAILED";
     default:
       return status;
   }
