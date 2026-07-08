@@ -44,17 +44,17 @@ export function getDeliveryStatusLabel(status: string) {
 export function getPaymentProviderLabel(provider: string) {
   switch (provider) {
     case "EPAY":
-      return "易支付";
+      return "EPAY";
     case "ALIPAY":
-      return "支付宝";
+      return "ALIPAY";
     case "ALIPAY_FACE":
-      return "支付宝当面付";
+      return "ALIPAY_FACE";
     case "STRIPE":
       return "Stripe";
     case "BEPUSDT":
-      return "BEpusdt";
+      return "Crypto Pay";
     case "FREE_PAY":
-      return "免费";
+      return "FREE_PAY";
     default:
       return provider;
   }

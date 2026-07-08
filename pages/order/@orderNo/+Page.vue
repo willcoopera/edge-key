@@ -20,40 +20,40 @@
     <section class="grid gap-6 lg:grid-cols-2">
       <article class="card bg-base-100 shadow-sm">
         <div class="card-body">
-          <h2 class="card-title">订单信息</h2>
+          <h2 class="card-title">Order Information</h2>
           <div class="space-y-2 text-sm">
-            <div class="flex justify-between"><span>商品</span><span>{{ order.productName }}</span></div>
-            <div class="flex justify-between"><span>数量</span><span>{{ order.quantity }}</span></div>
-            <div class="flex justify-between"><span>商品总价</span><span>{{ formatCents(order.originalAmount || order.amount) }}</span></div>
+            <div class="flex justify-between"><span>Product</span><span>{{ order.productName }}</span></div>
+            <div class="flex justify-between"><span>Quantity</span><span>{{ order.quantity }}</span></div>
+            <div class="flex justify-between"><span>Subtotal</span><span>{{ formatCents(order.originalAmount || order.amount) }}</span></div>
             <div v-if="order.discountCodeStr" class="flex justify-between text-orange-400">
-              <span>折扣码</span>
+              <span>Discount Code</span>
               <span>{{ order.discountCodeStr }}</span>
             </div>
             <div v-if="order.discountAmount" class="flex justify-between text-orange-400">
-              <span>折扣优惠</span>
+              <span>Discount</span>
               <span>-{{ formatCents(order.discountAmount) }}</span>
             </div>
             <div class="flex justify-between font-bold">
-              <span>实付金额</span>
+              <span>Amount Paid</span>
               <span class="text-primary">{{ formatCents(order.amount) }}</span>
             </div>
-            <div class="flex justify-between"><span>支付方式</span><span>{{ getPaymentProviderLabel(order.paymentProvider) }}</span></div>
+            <div class="flex justify-between"><span>Payment Method</span><span>{{ getPaymentProviderLabel(order.paymentProvider) }}</span></div>
           </div>
           <div v-if="order.paymentStatus === 'UNPAID'" class="mt-4">
             <AppButton v-if="order.paymentProvider !== 'ALIPAY_FACE'" size="sm" variant="primary" :loading="paying" @click="handleContinuePay">继续支付</AppButton>
             <div v-if="order.paymentProvider === 'ALIPAY_FACE'" class="space-y-3">
               <div v-if="qrCodeUrl">
-                <p class="text-sm text-base-content/70">请使用【支付宝】扫描下方二维码完成支付：</p>
+                <p class="text-sm text-base-content/70">Please scan the QR code below with Alipay to complete payment</p>
                 <div class="flex justify-center my-3">
-                  <img :src="qrCodeUrl" alt="支付宝当面付二维码" class="w-48 h-48 rounded-box border border-base-300" />
+                  <img :src="qrCodeUrl" alt="Alipay QR Code" class="w-48 h-48 rounded-box border border-base-300" />
                 </div>
-                <p class="text-xs text-center text-base-content/50">二维码有效期 2 小时</p>
+                <p class="text-xs text-center text-base-content/50">QR code valid for 2 hours</p>
               </div>
               <div v-if="paying && !qrCodeUrl" class="flex justify-center py-8">
                 <span class="loading loading-spinner loading-lg"></span>
               </div>
               <!-- <div v-if="qrCodeUrl" class="text-center">
-                <AppButton size="sm" variant="outline" :loading="paying" @click="renderQrImage">刷新二维码</AppButton>
+                <AppButton size="sm" variant="outline" :loading="paying" @click="renderQrImage">Refresh QR Code</AppButton>
               </div> -->
             </div>
             <p v-if="paymentError" class="mt-2 text-sm text-error">{{ paymentError }}</p>
@@ -63,11 +63,11 @@
 
       <article class="card bg-base-100 shadow-sm">
         <div class="card-body">
-          <h2 class="card-title">发货内容</h2>
+          <h2 class="card-title">Delivery Content</h2>
           <div v-if="order.deliveryContents.length" class="space-y-2">
             <pre v-for="content in order.deliveryContents" :key="content" class="rounded-box bg-base-200 p-3 text-sm">{{ content }}</pre>
           </div>
-          <p v-else class="text-sm text-base-content/60">当前订单尚未支付或尚未自动发货。</p>
+          <p v-else class="text-sm text-base-content/60">This order has not been paid or auto-delivered yet.</p>
         </div>
       </article>
     </section>
@@ -194,9 +194,9 @@ async function fetchQrCode() {
       renderQrImage();
       return;
     }
-    paymentError.value = "未获取到支付二维码";
+    paymentError.value = "Failed to retrieve payment QR code";
   } catch (error) {
-    paymentError.value = normalizeTelefuncError(error, "生成二维码失败");
+    paymentError.value = normalizeTelefuncError(error, "Failed to generate QR code");
   } finally {
     paying.value = false;
   }
@@ -221,9 +221,9 @@ async function handleContinuePay() {
       window.location.href = result.payUrl;
       return;
     }
-    paymentError.value = "未获取到支付链接";
+    paymentError.value = "Payment link not obtained";
   } catch (error) {
-    paymentError.value = normalizeTelefuncError(error, "拉起支付失败");
+    paymentError.value = normalizeTelefuncError(error, "Failed to launch payment");
   } finally {
     paying.value = false;
   }
