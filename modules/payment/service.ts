@@ -569,7 +569,7 @@ export async function handlePaymentNotify(
 
       if (product?.deliveryType !== "MANUAL") {
         try {
-          await deliverOrder(prisma, order.orderNo);
+          //await deliverOrder(prisma, order.orderNo);
           message = "already paid; delivery retried";
         } catch (error) {
           writePaymentNotifyDiagnostic({
